@@ -12,5 +12,4 @@
 @property (strong, nonatomic) IBOutlet UIImageView *photoImageView;
 
 -(void)setUpCellWithURL:(NSURL *)url;
--(void)saveImage;
 @end

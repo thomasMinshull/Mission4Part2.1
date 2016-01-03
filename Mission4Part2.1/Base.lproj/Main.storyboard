@@ -46,6 +46,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="photoImageView" destination="I0G-L1-NJD" id="Lde-Qv-ykW"/>
+                                    <outlet property="saveButton" destination="giN-Vh-CFS" id="v4j-Xo-haE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

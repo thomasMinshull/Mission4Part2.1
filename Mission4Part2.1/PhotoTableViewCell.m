@@ -10,6 +10,11 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MBProgressHUD.h"
 
+@interface PhotoTableViewCell ()
+@property (strong, nonatomic) IBOutlet UIButton *saveButton;
+
+@end
+
 @implementation PhotoTableViewCell
 
 - (void)awakeFromNib {
@@ -22,22 +27,14 @@
     NSLog(@"setUpCellWithURL: %@", url);
 }
 
--(void)saveImage {
-//    [MBProgressHUD showHUDAddedTo:self.photoImageView animated:YES];
-//    
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
-//    });
-//    [NSThread sleepForTimeInterval:0.5f];
-//    [MBProgressHUD hideHUDForView:self.photoImageView animated:YES];
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
+
 - (IBAction)saveToGallery:(id)sender {
+    [self.saveButton setTitle:@"Saving" forState:UIControlStateNormal];
     [MBProgressHUD showHUDAddedTo:self.photoImageView animated:YES];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -45,6 +42,7 @@
     });
     [NSThread sleepForTimeInterval:0.5f];
     [MBProgressHUD hideHUDForView:self.photoImageView animated:YES];
+    [self.saveButton setTitle:@"save" forState:UIControlStateNormal];
 }
 
 @end
