@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YMp-qU-PYL">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Photo Table View Controller-->
+        <scene sceneID="yAj-52-uTZ">
+            <objects>
+                <tableViewController id="YMp-qU-PYL" customClass="PhotoTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="300" sectionHeaderHeight="28" sectionFooterHeight="28" id="AaS-dI-nPo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="ImageTableViewCell" id="N8k-jc-lW1" customClass="PhotoTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="600" height="300"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N8k-jc-lW1" id="oqi-L9-pTh">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0G-L1-NJD">
+                                            <rect key="frame" x="190" y="54" width="221" height="92"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giN-Vh-CFS">
+                                            <rect key="frame" x="283" y="154" width="34" height="30"/>
+                                            <state key="normal" title="Save"/>
+                                            <connections>
+                                                <action selector="saveToGallery:" destination="N8k-jc-lW1" eventType="touchUpInside" id="2ca-YA-2N0"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="I0G-L1-NJD" firstAttribute="centerY" secondItem="oqi-L9-pTh" secondAttribute="centerY" priority="740" id="C2C-pR-D4Y"/>
+                                        <constraint firstItem="I0G-L1-NJD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="oqi-L9-pTh" secondAttribute="topMargin" constant="5" id="Ins-kB-pws"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="giN-Vh-CFS" secondAttribute="bottom" constant="5" id="RST-hE-1qU"/>
+                                        <constraint firstItem="giN-Vh-CFS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I0G-L1-NJD" secondAttribute="bottom" constant="5" id="TWy-ry-vYD"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="I0G-L1-NJD" secondAttribute="trailing" constant="5" id="YGg-yw-SL9"/>
+                                        <constraint firstItem="I0G-L1-NJD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oqi-L9-pTh" secondAttribute="leadingMargin" constant="5" id="aro-ln-dLJ"/>
+                                        <constraint firstItem="I0G-L1-NJD" firstAttribute="centerX" secondItem="oqi-L9-pTh" secondAttribute="centerX" id="rLV-fi-MsC"/>
+                                        <constraint firstItem="giN-Vh-CFS" firstAttribute="centerX" secondItem="I0G-L1-NJD" secondAttribute="centerX" id="yfE-cm-c4P"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="photoImageView" destination="I0G-L1-NJD" id="Lde-Qv-ykW"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="YMp-qU-PYL" id="VmU-2b-sO3"/>
+                            <outlet property="delegate" destination="YMp-qU-PYL" id="LPZ-sM-HXl"/>
+                        </connections>
+                    </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="700"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RoE-Wg-jep" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="481" y="156"/>
+        </scene>
+    </scenes>
+</document>
