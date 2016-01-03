@@ -18,7 +18,8 @@
     [super viewDidLoad];
 
     self.images = [[NSMutableArray alloc] init];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MBProgressHUD *tableViewHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    tableViewHud.labelText = @"Loading Images";
     
     FlickrKit *fk = [FlickrKit sharedFlickrKit];
     FKFlickrInterestingnessGetList *interesting = [[FKFlickrInterestingnessGetList alloc] init];
@@ -66,10 +67,6 @@
     PhotoTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ImageTableViewCell" forIndexPath:indexPath];
     [cell setUpCellWithURL:self.images[indexPath.row]];
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[self.tableView cellForRowAtIndexPath:indexPath] saveImage];
 }
 
 @end

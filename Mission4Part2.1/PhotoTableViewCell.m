@@ -34,15 +34,15 @@
 }
 
 - (IBAction)saveToGallery:(id)sender {
-    [self.saveButton setTitle:@"Saving" forState:UIControlStateNormal];
-    [MBProgressHUD showHUDAddedTo:self.photoImageView animated:YES];
+    MBProgressHUD *cellHud = [MBProgressHUD showHUDAddedTo:self.photoImageView animated:YES];
+    cellHud.labelText = @"Saving";
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
         UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
     });
-    [NSThread sleepForTimeInterval:0.5f];
+    [NSThread sleepForTimeInterval:1.0f];
     [MBProgressHUD hideHUDForView:self.photoImageView animated:YES];
-    [self.saveButton setTitle:@"save" forState:UIControlStateNormal];
 }
 
 @end
