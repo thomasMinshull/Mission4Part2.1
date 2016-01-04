@@ -12,36 +12,21 @@
 #import "PhotoTableViewCell.h"
 #import "MBProgressHUD.h"
 
-@implementation PhotoTableViewController
+@implementation PhotoTableViewController {
+    int currentPage;
+    bool isPageRefresing;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.images = [[NSMutableArray alloc] init];
+    currentPage = 1;
+    isPageRefresing = NO;
+    
     MBProgressHUD *tableViewHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     tableViewHud.labelText = @"Loading Images";
-    
-    FlickrKit *fk = [FlickrKit sharedFlickrKit];
-    FKFlickrInterestingnessGetList *interesting = [[FKFlickrInterestingnessGetList alloc] init];
-    [interesting setPer_page:@"10"];
-    [interesting setPage:@"0"];
-    [fk call:interesting completion:^(NSDictionary *response, NSError *error) {
-        // Note this is not the main thread!
-        if (response) {
-            for (NSDictionary *photoData in [response valueForKeyPath:@"photos.photo"]) {
-                NSURL *url = [fk photoURLForSize:FKPhotoSizeSmall240 fromPhotoDictionary:photoData];
-                [self.images addObject:url];
-                NSLog(@"Photo URL: %@", url);
-                
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Any GUI related operations here
-                NSLog(@"back on main thread");
-                [self.tableView reloadData];
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-            });
-        }   
-    }];
+    [self loadPage:currentPage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,11 +34,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+#pragma mark - Loading images
+
+- (void)loadPage:(int)page {
+    FlickrKit *fk = [FlickrKit sharedFlickrKit];
+    FKFlickrInterestingnessGetList *interesting = [[FKFlickrInterestingnessGetList alloc] init];
+    [interesting setPer_page:@"10"];
+ 
+    if (page < 0) {
+        return;
+    } else {
+        [interesting setPage:[NSString stringWithFormat:@"%d", page]];
+        [fk call:interesting completion:^(NSDictionary *response, NSError *error) {
+            // Note this is not the main thread!
+            if (response) {
+                for (NSDictionary *photoData in [response valueForKeyPath:@"photos.photo"]) {
+                    NSURL *url = [fk photoURLForSize:FKPhotoSizeSmall240 fromPhotoDictionary:photoData];
+                    [self.images addObject:url];
+                    NSLog(@"Photo URL: %@", url);
+                    
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Any GUI related operations here
+                    NSLog(@"back on main thread");
+                    [self.tableView reloadData];
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    isPageRefresing = NO;
+                });
+            }
+        }];
+    }
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if(self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.bounds.size.height)) {
+        
+        NSLog(@" scroll to bottom!");
+        if(isPageRefresing == NO){
+            isPageRefresing = YES;
+            currentPage++;
+            [self loadPage:currentPage];
+        }
+    }
+    
+}
+
+#pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.images && self.images.count) {

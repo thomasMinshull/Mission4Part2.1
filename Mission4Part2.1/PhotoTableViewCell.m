@@ -38,10 +38,9 @@
     cellHud.labelText = @"Saving";
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil, nil);
+        UIImageWriteToSavedPhotosAlbum(self.photoImageView.image, nil, nil, nil);
     });
-    [NSThread sleepForTimeInterval:1.0f];
+    [NSThread sleepForTimeInterval:3.0f];
     [MBProgressHUD hideHUDForView:self.photoImageView animated:YES];
 }
 
