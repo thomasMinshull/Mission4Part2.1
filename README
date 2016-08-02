@@ -1,3 +1,3 @@
-Mission4Part2.1 is a simple app built by Tom Minshull under the mentorship of Michael Thompson. 
+# Mission4Part2.1 is a simple app built by Tom Minshull under the mentorship of Michael Thompson. 
 
-The app uses the cocoapods SDWebImage, MBProgressHub, and FlickrKit, to pull a feed of images from flicker's API, which are displayed in a UITableView. The User can then click the save button in each UITableViewCell to save the picture to the users camera roll. 
+## The app uses the cocoapods SDWebImage, MBProgressHub, and FlickrKit, to pull a feed of images from flicker's API. These images are displayed in the typical master detail User Interface design. The User can then click the save button in each UITableViewCell to save the picture to the users camera roll. 
